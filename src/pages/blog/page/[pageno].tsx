@@ -55,7 +55,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ pageno:
       content_type: 'blog',
       skip: ARTICLES_PER_PAGE * pageno,
       limit: ARTICLES_PER_PAGE + 1,
-      order: 'sys.createdAt'
+      order: '-sys.createdAt'
    });
 
    return {
