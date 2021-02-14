@@ -15,8 +15,8 @@ export function AssetImage({ image, priority = false }: AssetImageProps): JSX.El
             className='rounded'
             src={`https:${file.url}`}
             alt={title}
-            width={file.details.image?.width ?? 1}
-            height={file.details.image?.height ?? 1}
+            width={file.details.image?.width ?? 0}
+            height={file.details.image?.height ?? 0}
             priority={priority}
          />
       </div>

@@ -6,7 +6,7 @@ export function ThemeButton(): JSX.Element {
    const [theme, setTheme] = useTheme();
 
    return (
-      <button aria-label='Toggle Theme' onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      <button className='transform transition-transform hover:scale-110' aria-label='Toggle Theme' onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
          {theme === 'dark' ? <MoonIcon /> : <SunIcon />}
       </button>
    );

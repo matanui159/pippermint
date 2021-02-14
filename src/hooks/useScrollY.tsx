@@ -6,7 +6,7 @@ export function useScrollY(): number {
 
    useEffect(() => {
       setScroll(window.pageYOffset);
-   });
+   }, []);
 
    useEventListener(globalThis, 'scroll', () => {
       setScroll(window.pageYOffset)
