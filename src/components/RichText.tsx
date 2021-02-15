@@ -1,5 +1,6 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { EntryFields } from 'contentful';
+import { Document } from '@contentful/rich-text-types';
 
 export interface RichTextProps {
    text: EntryFields.RichText;
@@ -8,7 +9,7 @@ export interface RichTextProps {
 export function RichText({ text }: RichTextProps): JSX.Element {
    return (
       <>
-         {documentToReactComponents(text as any)}
+         {documentToReactComponents(text as Document)}
       </>
    );
 }
