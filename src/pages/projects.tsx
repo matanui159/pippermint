@@ -32,8 +32,15 @@ export default function Projects({ entries }: ProjectsProps): JSX.Element {
             {entries.map((entry, index) => (
                <Fragment key={entry.sys.id}>
                   {index > 0 && <hr />}
-                  <BlankLink className='block transform transition-transform hover:scale-105' style={{ textDecoration: 'none' }} href={entry.fields.url}>
-                     <AssetImage image={entry.fields.image} priority={index < PRIORITY_PROJECTS} />
+                  <BlankLink
+                     className='block transform transition-transform hover:scale-105'
+                     style={{ textDecoration: 'none' }}
+                     href={entry.fields.url}
+                  >
+                     <AssetImage
+                        image={entry.fields.image}
+                        priority={index < PRIORITY_PROJECTS}
+                     />
                      <h1>{entry.fields.name}</h1>
                   </BlankLink>
                </Fragment>
@@ -46,12 +53,12 @@ export default function Projects({ entries }: ProjectsProps): JSX.Element {
 export async function getStaticProps(): Promise<GetStaticPropsResult<ProjectsProps>> {
    const entries = await getContentfulEntries<ProjectFields>({
       content_type: 'project',
-      order: 'fields.order'
+      order: 'fields.order',
    });
    return {
       props: {
-         entries
+         entries,
       },
-      revalidate: 3600
+      revalidate: 3600,
    };
 }

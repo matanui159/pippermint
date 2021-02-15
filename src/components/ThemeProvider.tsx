@@ -1,12 +1,13 @@
-import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useMatchMedia } from '../hooks/useMatchMedia';
+import { ChildProps } from '../props';
 
 export type Theme = 'light' | 'dark';
 export type ThemeHook = [Theme, (theme: Theme) => void];
 
 const ThemeContext = createContext<ThemeHook>(['light', () => {}]);
 
-export function ThemeProvider({ children }: PropsWithChildren<{}>): JSX.Element {
+export function ThemeProvider({ children }: ChildProps): JSX.Element {
    const [theme, setTheme] = useState<Theme>('light');
    const prefersDark = useMatchMedia('(prefers-color-scheme: dark)');
 

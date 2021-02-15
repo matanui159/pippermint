@@ -1,11 +1,11 @@
 import { Asset, Entry, EntryFields } from 'contentful';
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
-import { Title } from '../../components/title/Title';
-import { RichText } from '../../components/RichText';
 import Head from 'next/head';
-import { Prose } from '../../components/Prose';
-import { AssetImage } from '../../components/AssetImage';
 import { getContentfulEntries } from '../../backend/contentful';
+import { AssetImage } from '../../components/AssetImage';
+import { Prose } from '../../components/Prose';
+import { RichText } from '../../components/RichText';
+import { Title } from '../../components/title/Title';
 import NotFound from '../404';
 
 export interface BlogArticleFields {
@@ -21,7 +21,7 @@ export interface BlogArticleProps {
 
 export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
    if (entry === null) {
-      return <NotFound />
+      return <NotFound />;
    }
 
    return (
@@ -39,27 +39,31 @@ export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
    );
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: string }>): Promise<GetStaticPropsResult<BlogArticleProps>> {
+export async function getStaticProps({
+   params,
+}: GetStaticPropsContext<{ slug: string }>): Promise<
+   GetStaticPropsResult<BlogArticleProps>
+> {
    const revalidate = 3600;
    if (params === undefined) {
       return {
          props: {
-            entry: null
+            entry: null,
          },
-         revalidate
+         revalidate,
       };
    }
 
    const entries = await getContentfulEntries<BlogArticleFields>({
       content_type: 'blog',
       limit: 1,
-      'fields.slug': params.slug
+      'fields.slug': params.slug,
    });
    return {
       props: {
-         entry: entries.pop() ?? null
+         entry: entries.pop() ?? null,
       },
-      revalidate
+      revalidate,
    };
 }
 
@@ -67,10 +71,10 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult> {
    const entries = await getContentfulEntries<BlogArticleFields>({
       content_type: 'blog',
       limit: 10,
-      order: '-sys.createdAt'
+      order: '-sys.createdAt',
    });
    return {
-      paths: entries.map(entry => `/blog/${entry.fields.slug}`),
-      fallback: 'blocking'
+      paths: entries.map((entry) => `/blog/${entry.fields.slug}`),
+      fallback: 'blocking',
    };
 }

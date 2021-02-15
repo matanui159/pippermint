@@ -1,14 +1,12 @@
-import { useScrollY } from '../../hooks/useScrollY';
-import { ThemeButton } from './ThemeButton';
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import { useScrollY } from '../../hooks/useScrollY';
+import { ClassProps, CommonProps } from '../../props';
+import { ThemeButton } from './ThemeButton';
 
-interface ClassProps {
-   className?: string;
-}
-
-const TitleBase = ({ className = '', children }: PropsWithChildren<ClassProps>) => (
-   <div className={`flex flex-col items-center m-4 border px-8 py-4 text-red-600 sm:flex-row sm:mx-8 dark:text-red-500 ${className}`}>
+const TitleBase = ({ className = '', children }: CommonProps) => (
+   <div
+      className={`flex flex-col items-center m-4 border px-8 py-4 text-red-600 sm:flex-row sm:mx-8 dark:text-red-500 ${className}`}
+   >
       {children}
    </div>
 );

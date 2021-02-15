@@ -1,4 +1,4 @@
-import { createClient, Entry } from 'contentful';
+import { Entry, createClient } from 'contentful';
 
 export async function getContentfulEntries<T>(query: unknown): Promise<Entry<T>[]> {
    const space = process.env.CONTENT_SPACE_ID;
@@ -9,7 +9,8 @@ export async function getContentfulEntries<T>(query: unknown): Promise<Entry<T>[
    const client = createClient({ space, accessToken });
    const entries = await client.getEntries<T>(query);
    if (entries.errors !== undefined) {
-      entries.errors.forEach(error => console.error(error));
+      // eslint-disable-next-line no-console
+      entries.errors.forEach((error) => console.error(error));
       throw new Error('Failed to query Contentful');
    }
    return entries.items;

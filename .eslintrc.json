@@ -1,0 +1,31 @@
+{
+   "extends": [
+      "airbnb-typescript",
+      "prettier",
+      "prettier/react",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "prettier/@typescript-eslint"
+   ],
+   "plugins": ["prettier"],
+   "parserOptions": {
+      "project": "tsconfig.json"
+   },
+   "rules": {
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/disable-default-props": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+      "import/prefer-default-export": "off",
+
+      "prettier/prettier": "warn",
+      "import/order": ["warn", {
+         "alphabetize": {
+            "order": "asc"
+         }
+      }],
+      "sort-imports": ["warn", {
+         "ignoreDeclarationSort": true
+      }]
+   }
+}

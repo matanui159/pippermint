@@ -15,7 +15,7 @@ const Button = ({ pageno, children }: PropsWithChildren<ButtonProps>): JSX.Eleme
          </a>
       </Link>
    </div>
-)
+);
 
 export interface PaginatorProps {
    pageno: number;
@@ -25,13 +25,17 @@ export interface PaginatorProps {
 export function Paginator({ pageno, lastPage = false }: PaginatorProps): JSX.Element {
    return (
       <div className='flex justify-between'>
-         {lastPage ? <div /> : (
+         {lastPage ? (
+            <div />
+         ) : (
             <Button pageno={pageno + 1}>
                <LeftIcon />
                <div>Older</div>
             </Button>
          )}
-         {pageno === 0 ? <div /> : (
+         {pageno === 0 ? (
+            <div />
+         ) : (
             <Button pageno={pageno - 1}>
                <div>Newer</div>
                <RightIcon />

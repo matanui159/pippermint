@@ -9,7 +9,7 @@ export function useScrollY(): number {
    }, []);
 
    useEventListener(globalThis, 'scroll', () => {
-      setScroll(window.pageYOffset)
+      setScroll(window.pageYOffset);
    });
 
    return scroll;
