@@ -64,8 +64,13 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: s
 }
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+   const entries = await getContentfulEntries<BlogArticleFields>({
+      content_type: 'blog',
+      limit: 10,
+      order: '-sys.createdAt'
+   });
    return {
-      paths: [],
+      paths: entries.map(entry => `/blog/${entry.fields.slug}`),
       fallback: 'blocking'
    };
 }

@@ -71,7 +71,6 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ pageno:
       limit: ARTICLES_PER_PAGE + 1,
       order: '-sys.createdAt'
    });
-
    return {
       props: {
          pageno,
@@ -90,7 +89,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ pageno:
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
    return {
-      paths: [],
+      paths: ['/blog/page/0'],
       fallback: 'blocking'
    };
 }

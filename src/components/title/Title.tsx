@@ -26,7 +26,7 @@ const Links = ({ className = '' }: ClassProps) => (
          <Link href='/blog'>Blog</Link>
       </div>
       <div className='transform transition-transform hover:scale-110'>
-         <Link href='/'>Projects</Link>
+         <Link href='/projects'>Projects</Link>
       </div>
    </div>
 );
