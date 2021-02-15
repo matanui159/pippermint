@@ -9,6 +9,7 @@ import { Prose } from '../../../components/Prose';
 import { Fragment } from 'react';
 import { AssetImage } from '../../../components/AssetImage';
 import { Paginator } from '../../../components/paginator/Paginator';
+import NotFound from '../../404';
 
 const ARTICLES_PER_PAGE = 10;
 const PRIORITY_PER_PAGE = 3;
@@ -22,6 +23,10 @@ export interface BlogPageProps {
 }
 
 export default function BlogPage({ entries, pageno, lastPage }: BlogPageProps): JSX.Element {
+   if (entries.length === 0) {
+      return <NotFound />;
+   }
+
    return (
       <>
          <Head>
@@ -47,10 +52,19 @@ export default function BlogPage({ entries, pageno, lastPage }: BlogPageProps): 
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext<{ pageno: string }>): Promise<GetStaticPropsResult<BlogPageProps>> {
+   const revalidate = 3600;
    const pageno = Number.parseInt(params?.pageno ?? 'NaN');
    if (Number.isNaN(pageno)) {
-      throw new Error('Failed to get page number');
+      return {
+         props: {
+            pageno,
+            lastPage: true,
+            entries: [],
+         },
+         revalidate
+      };
    }
+
    const entries = await getContentfulEntries<BlogArticleFields>({
       content_type: 'blog',
       skip: ARTICLES_PER_PAGE * pageno,
@@ -70,7 +84,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ pageno:
             };
          })
       },
-      revalidate: 3600
+      revalidate
    };
 }
 

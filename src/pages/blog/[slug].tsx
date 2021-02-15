@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { Prose } from '../../components/Prose';
 import { AssetImage } from '../../components/AssetImage';
 import { getContentfulEntries } from '../../backend/contentful';
+import NotFound from '../404';
 
 export interface BlogArticleFields {
    slug: EntryFields.Symbol;
@@ -15,10 +16,14 @@ export interface BlogArticleFields {
 }
 
 export interface BlogArticleProps {
-   entry: Entry<BlogArticleFields>;
+   entry: Entry<BlogArticleFields> | null;
 }
 
 export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
+   if (entry === null) {
+      return <NotFound />
+   }
+
    return (
       <>
          <Head>
@@ -35,23 +40,26 @@ export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: string }>): Promise<GetStaticPropsResult<BlogArticleProps>> {
+   const revalidate = 3600;
    if (params === undefined) {
-      throw new Error('Failed to get article slug');
+      return {
+         props: {
+            entry: null
+         },
+         revalidate
+      };
    }
+
    const entries = await getContentfulEntries<BlogArticleFields>({
       content_type: 'blog',
       limit: 1,
       'fields.slug': params.slug
    });
-
-   if (entries.length === 0) {
-      throw new Error('Failed to get Contentful entry');
-   }
    return {
       props: {
-         entry: entries[0]
+         entry: entries.pop() ?? null
       },
-      revalidate: 3600
+      revalidate
    };
 }
 
