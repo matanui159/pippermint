@@ -35,6 +35,7 @@
       "build": "run-s build:*",
       "build:rm": "rimraf .next",
       "build:next": "next build",
+      "ci": "run-p lint build",
       "start": "next start",
       "lint": "eslint . --ext ts,tsx --max-warnings 0",
       "fix": "yarn lint --fix"
