@@ -15,8 +15,9 @@ export default function Index(): JSX.Element {
             <h1>Welcome!</h1>
             <h4>I am Joshua &lsquo;Pip&rsquo; Minter.</h4>
             <h4>I enjoy programming and having pineapple on pizza.</h4>
+            <h4>I am smart enough to program in C but not smart enough to avoid it.</h4>
             <h4>
-               I work at <BlankLink href='https://clipchamp.com'>Clipchamp</BlankLink>{' '}
+               I work at <BlankLink href='https://clipchamp.com/en/'>Clipchamp</BlankLink>{' '}
                where I spend my time playing{' '}
                <BlankLink href='https://boardgamegeek.com/boardgame/131357/coup'>
                   Coup
