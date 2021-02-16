@@ -6,7 +6,6 @@ export default function NotFound(): JSX.Element {
       <>
          <Head>
             <title>404 - Pippermint</title>
-            <meta name='robots' content='noindex' />
          </Head>
          <div className='fixed top-0 w-full'>
             <Title />

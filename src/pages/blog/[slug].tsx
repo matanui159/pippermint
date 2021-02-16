@@ -6,24 +6,19 @@ import { AssetImage } from '../../components/AssetImage';
 import { Prose } from '../../components/Prose';
 import { RichText } from '../../components/RichText';
 import { Title } from '../../components/title/Title';
-import NotFound from '../404';
 
 export interface BlogArticleFields {
    slug: EntryFields.Symbol;
    title: EntryFields.Symbol;
-   image: Asset;
+   image?: Asset;
    body: EntryFields.RichText;
 }
 
 export interface BlogArticleProps {
-   entry: Entry<BlogArticleFields> | null;
+   entry: Entry<BlogArticleFields>;
 }
 
 export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
-   if (entry === null) {
-      return <NotFound />;
-   }
-
    return (
       <>
          <Head>
@@ -31,7 +26,7 @@ export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
          </Head>
          <Title />
          <Prose>
-            <AssetImage image={entry.fields.image} priority />
+            {entry.fields.image && <AssetImage image={entry.fields.image} priority />}
             <h1>{entry.fields.title}</h1>
             <RichText text={entry.fields.body} />
          </Prose>
@@ -47,9 +42,7 @@ export async function getStaticProps({
    const revalidate = 3600;
    if (params === undefined) {
       return {
-         props: {
-            entry: null,
-         },
+         notFound: true,
          revalidate,
       };
    }
@@ -59,9 +52,15 @@ export async function getStaticProps({
       limit: 1,
       'fields.slug': params.slug,
    });
+   if (entries.length === 0) {
+      return {
+         notFound: true,
+         revalidate,
+      };
+   }
    return {
       props: {
-         entry: entries.pop() ?? null,
+         entry: entries[0],
       },
       revalidate,
    };

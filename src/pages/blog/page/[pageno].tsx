@@ -8,7 +8,6 @@ import { AssetImage } from '../../../components/AssetImage';
 import { Prose } from '../../../components/Prose';
 import { Paginator } from '../../../components/paginator/Paginator';
 import { Title } from '../../../components/title/Title';
-import NotFound from '../../404';
 import { BlogArticleFields } from '../[slug]';
 
 const ARTICLES_PER_PAGE = 10;
@@ -27,10 +26,6 @@ export default function BlogPage({
    pageno,
    lastPage,
 }: BlogPageProps): JSX.Element {
-   if (entries.length === 0) {
-      return <NotFound />;
-   }
-
    return (
       <>
          <Head>
@@ -45,10 +40,12 @@ export default function BlogPage({
                         className='block transform transition-transform hover:scale-105'
                         style={{ textDecoration: 'none' }}
                      >
-                        <AssetImage
-                           image={entry.fields.image}
-                           priority={index < PRIORITY_PER_PAGE}
-                        />
+                        {entry.fields.image && (
+                           <AssetImage
+                              image={entry.fields.image}
+                              priority={index < PRIORITY_PER_PAGE}
+                           />
+                        )}
                         <h1>{entry.fields.title}</h1>
                      </a>
                   </Link>
@@ -70,11 +67,7 @@ export async function getStaticProps({
    const pageno = Number.parseInt(params?.pageno ?? 'NaN', 10);
    if (Number.isNaN(pageno)) {
       return {
-         props: {
-            pageno,
-            lastPage: true,
-            entries: [],
-         },
+         notFound: true,
          revalidate,
       };
    }
@@ -85,6 +78,12 @@ export async function getStaticProps({
       limit: ARTICLES_PER_PAGE + 1,
       order: '-sys.createdAt',
    });
+   if (entries.length === 0) {
+      return {
+         notFound: true,
+         revalidate,
+      };
+   }
    return {
       props: {
          pageno,
