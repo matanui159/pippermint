@@ -17,10 +17,20 @@ module.exports = {
             dark: {
                css: {
                   color: theme('colors.gray.300'),
-                  'h1,h2,h3,h4,blockquote': {
+                  a: {
+                     color: theme('colors.red.500')
+                  },
+                  code: {
                      color: theme('colors.gray.50')
                   },
-                  'hr': {
+                  'h1,h2,h3,h4': {
+                     color: theme('colors.gray.50')
+                  },
+                  hr: {
+                     borderColor: theme('colors.gray.800')
+                  },
+                  blockquote: {
+                     color: theme('colors.gray.50'),
                      borderColor: theme('colors.gray.800')
                   },
                   'ul>li::before': {
@@ -28,9 +38,6 @@ module.exports = {
                   },
                   'ol>li::before': {
                      color: theme('colors.gray.400')
-                  },
-                  a: {
-                     color: theme('colors.red.500')
                   }
                }
             }
