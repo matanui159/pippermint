@@ -37,7 +37,6 @@
       "build:next": "next build",
       "start": "next start",
       "lint": "eslint . --ext ts,tsx --max-warnings 0",
-      "fix": "yarn lint --fix",
-      "ci": "run-p lint build:next"
+      "fix": "yarn lint --fix"
    }
 }
