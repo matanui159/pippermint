@@ -9,8 +9,9 @@ import { Title } from '../../components/title/Title';
 
 export interface BlogArticleFields {
    slug: EntryFields.Symbol;
-   title: EntryFields.Symbol;
    image?: Asset;
+   title: EntryFields.Symbol;
+   date: EntryFields.Date;
    body: EntryFields.RichText;
 }
 

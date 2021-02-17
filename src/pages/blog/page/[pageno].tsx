@@ -76,7 +76,7 @@ export async function getStaticProps({
       content_type: 'blog',
       skip: ARTICLES_PER_PAGE * pageno,
       limit: ARTICLES_PER_PAGE + 1,
-      order: '-sys.createdAt',
+      order: '-fields.date',
    });
    if (entries.length === 0) {
       return {
