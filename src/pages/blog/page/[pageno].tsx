@@ -63,7 +63,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ pageno: string }>): Promise<
    GetStaticPropsResult<BlogPageProps>
 > {
-   const revalidate = 3600;
+   const revalidate = 60;
    const pageno = Number.parseInt(params?.pageno ?? 'NaN', 10);
    if (Number.isNaN(pageno)) {
       return {

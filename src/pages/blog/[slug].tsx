@@ -39,7 +39,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ slug: string }>): Promise<
    GetStaticPropsResult<BlogArticleProps>
 > {
-   const revalidate = 3600;
+   const revalidate = 60;
    if (params === undefined) {
       return {
          notFound: true,

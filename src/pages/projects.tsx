@@ -59,6 +59,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ProjectsPro
       props: {
          entries,
       },
-      revalidate: 3600,
+      revalidate: 60,
    };
 }
