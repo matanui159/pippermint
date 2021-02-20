@@ -1,8 +1,13 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer');
+const withPlugins = require('next-compose-plugins');
+const preact = require('next-plugin-preact');
+const bundleAnalyzer = require('@next/bundle-analyzer');
 
-module.exports = withBundleAnalyzer({
-   enabled: process.env.NEXT_ANALYZE === 'true'
-})({
+module.exports = withPlugins([
+   preact,
+   bundleAnalyzer({
+      enabled: process.env.NEXT_ANALYZE === 'true'
+   })
+], {
    rewrites: async () => [
       {
          source: '/blog',
