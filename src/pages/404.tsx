@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Title } from '../components/title/Title';
+import { Header } from '../components/header/Header';
 
 export default function NotFound(): JSX.Element {
    return (
@@ -8,7 +8,7 @@ export default function NotFound(): JSX.Element {
             <title>404 - Pippermint</title>
          </Head>
          <div className='fixed top-0 w-full'>
-            <Title />
+            <Header />
          </div>
          <div className='w-screen h-screen flex flex-col justify-center items-center'>
             <div className='text-gray-900 text-9xl font-extrabold dark:text-gray-50'>

@@ -3,7 +3,7 @@ import { useScrollY } from '../../hooks/useScrollY';
 import { ClassProps, CommonProps } from '../../props';
 import { ThemeButton } from './ThemeButton';
 
-const TitleBase = ({ className = '', children }: CommonProps) => (
+const HeaderBase = ({ className = '', children }: CommonProps) => (
    <div
       className={`flex flex-col items-center m-4 border px-8 py-4 text-red-600 sm:flex-row sm:mx-8 dark:text-red-500 ${className}`}
    >
@@ -11,7 +11,7 @@ const TitleBase = ({ className = '', children }: CommonProps) => (
    </div>
 );
 
-const Logo = () => (
+const Title = () => (
    <div className='flex-grow text-4xl font-title'>
       <Link href='/'>Pippermint</Link>
    </div>
@@ -29,21 +29,21 @@ const Links = ({ className = '' }: ClassProps) => (
    </div>
 );
 
-export function Title(): JSX.Element {
+export function Header(): JSX.Element {
    const scrollY = useScrollY();
 
    return (
       <>
-         <TitleBase className='border-transparent space-y-8 sm:space-y-0'>
-            <Logo />
+         <HeaderBase className='border-transparent space-y-8 sm:space-y-0'>
+            <Title />
             <Links />
-         </TitleBase>
+         </HeaderBase>
          {scrollY > 0 && (
             <div className='fixed top-0 z-10 w-full bg-gradient-to-b from-gray-50 via-gray-50 dark:from-gray-900 dark:via-gray-900'>
-               <TitleBase className='border-red-300 rounded-full bg-gray-50 dark:border-red-900 dark:bg-gray-900'>
-                  <Logo />
+               <HeaderBase className='border-red-300 rounded-full bg-gray-50 dark:border-red-900 dark:bg-gray-900'>
+                  <Title />
                   <Links className='hidden sm:flex' />
-               </TitleBase>
+               </HeaderBase>
             </div>
          )}
       </>

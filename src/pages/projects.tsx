@@ -6,9 +6,7 @@ import { getContentfulEntries } from '../backend/contentful';
 import { AssetImage } from '../components/AssetImage';
 import { BlankLink } from '../components/BlankLink';
 import { Prose } from '../components/Prose';
-import { Title } from '../components/title/Title';
-
-const PRIORITY_PROJECTS = 3;
+import { Header } from '../components/header/Header';
 
 export interface ProjectFields {
    order: EntryFields.Integer;
@@ -27,7 +25,7 @@ export default function Projects({ entries }: ProjectsProps): JSX.Element {
          <Head>
             <title>Projects - Pippermint</title>
          </Head>
-         <Title />
+         <Header />
          <Prose>
             {entries.map((entry, index) => (
                <Fragment key={entry.sys.id}>
@@ -37,10 +35,7 @@ export default function Projects({ entries }: ProjectsProps): JSX.Element {
                      style={{ textDecoration: 'none' }}
                      href={entry.fields.url}
                   >
-                     <AssetImage
-                        image={entry.fields.image}
-                        priority={index < PRIORITY_PROJECTS}
-                     />
+                     <AssetImage image={entry.fields.image} priority={index === 0} />
                      <h1>{entry.fields.name}</h1>
                   </BlankLink>
                </Fragment>

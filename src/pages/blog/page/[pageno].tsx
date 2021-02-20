@@ -6,12 +6,12 @@ import { Fragment } from 'react';
 import { getContentfulEntries } from '../../../backend/contentful';
 import { AssetImage } from '../../../components/AssetImage';
 import { Prose } from '../../../components/Prose';
+import { Title } from '../../../components/Title';
+import { Header } from '../../../components/header/Header';
 import { Paginator } from '../../../components/paginator/Paginator';
-import { Title } from '../../../components/title/Title';
 import { BlogArticleFields } from '../[slug]';
 
 const ARTICLES_PER_PAGE = 10;
-const PRIORITY_PER_PAGE = 3;
 
 export type BlogPageFields = Omit<BlogArticleFields, 'body'>;
 
@@ -31,7 +31,7 @@ export default function BlogPage({
          <Head>
             <title>Blog - Peppermint</title>
          </Head>
-         <Title />
+         <Header />
          <Prose>
             {entries.map((entry, index) => (
                <Fragment key={entry.sys.id}>
@@ -43,10 +43,10 @@ export default function BlogPage({
                         {entry.fields.image && (
                            <AssetImage
                               image={entry.fields.image}
-                              priority={index < PRIORITY_PER_PAGE}
+                              priority={index === 0}
                            />
                         )}
-                        <h1>{entry.fields.title}</h1>
+                        <Title title={entry.fields.title} date={entry.fields.date} />
                      </a>
                   </Link>
                   <hr />

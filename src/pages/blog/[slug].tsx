@@ -5,7 +5,8 @@ import { getContentfulEntries } from '../../backend/contentful';
 import { AssetImage } from '../../components/AssetImage';
 import { Prose } from '../../components/Prose';
 import { RichText } from '../../components/RichText';
-import { Title } from '../../components/title/Title';
+import { Title } from '../../components/Title';
+import { Header } from '../../components/header/Header';
 
 export interface BlogArticleFields {
    slug: EntryFields.Symbol;
@@ -25,10 +26,10 @@ export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
          <Head>
             <title>{entry.fields.title} - Pippermint</title>
          </Head>
-         <Title />
+         <Header />
          <Prose>
             {entry.fields.image && <AssetImage image={entry.fields.image} priority />}
-            <h1>{entry.fields.title}</h1>
+            <Title title={entry.fields.title} date={entry.fields.date} />
             <RichText text={entry.fields.body} />
          </Prose>
       </>

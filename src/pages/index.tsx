@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { BlankLink } from '../components/BlankLink';
 import { Prose } from '../components/Prose';
-import { Title } from '../components/title/Title';
+import { Header } from '../components/header/Header';
 
 export default function Index(): JSX.Element {
    return (
@@ -10,7 +10,7 @@ export default function Index(): JSX.Element {
          <Head>
             <title>Pippermint</title>
          </Head>
-         <Title />
+         <Header />
          <Prose>
             <h1>Welcome!</h1>
             <h4>I am Joshua &lsquo;Pip&rsquo; Minter.</h4>
