@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { logEvent, logProperties } from '../analytics';
 import { useMatchMedia } from '../hooks/useMatchMedia';
 import { ChildProps } from '../props';
 
@@ -29,11 +30,13 @@ export function ThemeProvider({ children }: ChildProps): JSX.Element {
       } else {
          classes.remove('dark');
       }
+      logProperties({ theme });
    }, [theme]);
 
    const setThemeStorage = useCallback((newTheme: Theme) => {
       setTheme(newTheme);
       localStorage.setItem('theme', newTheme);
+      logEvent('theme_changed', { theme: newTheme });
    }, []);
 
    return (

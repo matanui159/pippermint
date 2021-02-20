@@ -4,10 +4,10 @@ export async function getContentfulEntries<T>(
    query: unknown,
    preview = false
 ): Promise<Entry<T>[]> {
-   const space = process.env.CONTENT_SPACE_ID;
+   const space = process.env.CTFL_SPACE_ID;
    const accessToken = preview
-      ? process.env.CONTENT_PREVIEW_TOKEN
-      : process.env.CONTENT_ACCESS_TOKEN;
+      ? process.env.CTFL_PREVIEW_TOKEN
+      : process.env.CTFL_ACCESS_TOKEN;
    const host = preview ? 'preview.contentful.com' : 'cdn.contentful.com';
    if (space === undefined || accessToken === undefined) {
       throw new Error('Space ID or access token not provided');

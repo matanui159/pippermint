@@ -2,6 +2,7 @@ import { Asset, Entry, EntryFields } from 'contentful';
 import { GetStaticPropsResult } from 'next';
 import Head from 'next/head';
 import { Fragment } from 'react';
+import { logEvent } from '../analytics';
 import { getContentfulEntries } from '../backend/contentful';
 import { AssetImage } from '../components/AssetImage';
 import { BlankLink } from '../components/BlankLink';
@@ -34,6 +35,9 @@ export default function Projects({ entries }: ProjectsProps): JSX.Element {
                      className='block transform transition-transform hover:scale-105'
                      style={{ textDecoration: 'none' }}
                      href={entry.fields.url}
+                     onClick={() =>
+                        logEvent('project_clicked', { project: entry.fields.name })
+                     }
                   >
                      <AssetImage image={entry.fields.image} priority={index === 0} />
                      <h1>{entry.fields.name}</h1>

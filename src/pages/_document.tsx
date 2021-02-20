@@ -1,4 +1,5 @@
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
+import { GA_MEASUREMENT_ID } from '../analytics';
 
 export default class Document extends NextDocument {
    public render(): JSX.Element {
@@ -14,6 +15,20 @@ export default class Document extends NextDocument {
                   rel='stylesheet'
                   href='https://fonts.googleapis.com/css2?family=Fredoka+One&display=block&text=Pipermnt'
                />
+               {GA_MEASUREMENT_ID !== undefined && (
+                  <>
+                     <script
+                        /* eslint-disable-next-line react/no-danger */
+                        dangerouslySetInnerHTML={{
+                           __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
+                        }}
+                     />
+                     <script
+                        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+                        async
+                     />
+                  </>
+               )}
             </Head>
             <body className='bg-gray-50 font-body dark:bg-gray-900'>
                <Main />
