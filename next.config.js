@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer');
+
+module.exports = withBundleAnalyzer({
+   enabled: process.env.NEXT_ANALYZE === 'true'
+})({
    rewrites: async () => [
       {
          source: '/blog',
@@ -8,4 +12,4 @@ module.exports = {
    images: {
       domains: ['images.ctfassets.net']
    }
-};
+});
