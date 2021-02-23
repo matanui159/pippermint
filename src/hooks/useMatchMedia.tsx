@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MediaQueryListPolyfill } from '../compat/media-polyfill';
 import { useEventListener } from './useEventListener';
 
 export function useMatchMedia(query: string): boolean {
@@ -6,12 +7,15 @@ export function useMatchMedia(query: string): boolean {
    const [matches, setMatches] = useState(false);
 
    useEffect(() => {
-      const newMedia = window.matchMedia(query);
+      let newMedia = window.matchMedia(query);
+      if (!(newMedia instanceof EventTarget)) {
+         newMedia = new MediaQueryListPolyfill(newMedia);
+      }
       setMedia(newMedia);
       setMatches(newMedia.matches);
    }, [query]);
 
-   useEventListener(media, 'change', (event: MediaQueryListEvent) => {
+   useEventListener(media, 'change', (event) => {
       setMatches(event.matches);
    });
 

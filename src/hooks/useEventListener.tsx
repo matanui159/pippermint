@@ -24,21 +24,7 @@ export function useEventListener(
       if (target === undefined) {
          return undefined;
       }
-      if (target instanceof MediaQueryList && !(target instanceof EventTarget)) {
-         // Support older versions of Safari
-         const media = target as MediaQueryList;
-         media.addListener(listener);
-      } else {
-         target.addEventListener(type, listener);
-      }
-
-      return () => {
-         if (target instanceof MediaQueryList && !(target instanceof EventTarget)) {
-            const media = target as MediaQueryList;
-            media.removeListener(listener);
-         } else {
-            target.removeEventListener(type, listener);
-         }
-      };
+      target.addEventListener(type, listener);
+      return () => target.removeEventListener(type, listener);
    }, [target, type, listener]);
 }
