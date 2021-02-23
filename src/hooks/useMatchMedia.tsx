@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
-import { MediaQueryListPolyfill } from '../compat/media-polyfill';
-import { useEventListener } from './useEventListener';
+import { useMediaListener } from './useListener';
 
 export function useMatchMedia(query: string): boolean {
    const [media, setMedia] = useState<MediaQueryList>();
    const [matches, setMatches] = useState(false);
 
    useEffect(() => {
-      let newMedia = window.matchMedia(query);
-      if (!(newMedia instanceof EventTarget)) {
-         newMedia = new MediaQueryListPolyfill(newMedia);
-      }
+      const newMedia = window.matchMedia(query);
       setMedia(newMedia);
       setMatches(newMedia.matches);
    }, [query]);
 
-   useEventListener(media, 'change', (event) => {
+   useMediaListener(media, (event) => {
       setMatches(event.matches);
    });
 

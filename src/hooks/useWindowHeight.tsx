@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useEventListener } from './useEventListener';
+import { useWindowListener } from './useListener';
 
 export function useWindowHeight(): number {
    const [height, setHeight] = useState(0);
@@ -8,7 +8,7 @@ export function useWindowHeight(): number {
       setHeight(window.innerHeight);
    }, []);
 
-   useEventListener(globalThis, 'resize', () => {
+   useWindowListener('resize', () => {
       setHeight(window.innerHeight);
    });
 
