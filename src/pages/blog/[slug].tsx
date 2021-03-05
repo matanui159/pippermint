@@ -1,5 +1,6 @@
 import { Asset, Entry, EntryFields } from 'contentful';
 import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import { getContentfulEntries } from '../../backend/contentful';
 import { AssetImage } from '../../components/AssetImage';
@@ -21,10 +22,19 @@ export interface BlogArticleProps {
 }
 
 export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
+   const router = useRouter();
+   const title = `${entry.fields.title} - Pippermint`;
+
    return (
       <>
          <Head>
-            <title>{entry.fields.title} - Pippermint</title>
+            <title>{title}</title>
+            <meta property='og:title' content={title} />
+            <meta property='og:type' content='article' />
+            <meta property='og:image' content={entry.fields.image?.fields.file.url} />
+            <meta property='og:url' content={`https://pippermint.io${router.asPath}`} />
+            <meta property='og:article:published_date' content={entry.fields.date} />
+            <meta property='og:article:author' content="Joshua 'Pip' Minter" />
          </Head>
          <Header />
          <Prose>
