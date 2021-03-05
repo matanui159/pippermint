@@ -1,11 +1,9 @@
 {
    "extends": [
       "airbnb-typescript",
-      "prettier",
-      "prettier/react",
       "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "prettier/@typescript-eslint"
+      "prettier"
    ],
    "plugins": ["prettier"],
    "parserOptions": {
