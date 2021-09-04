@@ -13,7 +13,7 @@ export default class Document extends NextDocument {
                />
                <link
                   rel='stylesheet'
-                  href='https://fonts.googleapis.com/css2?family=Fredoka+One&display=block&text=Pipermnt'
+                  href='https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap&text=Pipermnt'
                />
                {GA_MEASUREMENT_ID !== undefined && (
                   <>

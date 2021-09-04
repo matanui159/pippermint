@@ -12,6 +12,7 @@
    },
    "devDependencies": {
       "@next/bundle-analyzer": "11.1.2",
+      "@next/eslint-plugin-next": "11.1.2",
       "@tailwindcss/typography": "0.4.1",
       "@types/gtag.js": "0.0.7",
       "@types/node": "16.7.10",
