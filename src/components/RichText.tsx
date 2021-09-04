@@ -22,10 +22,12 @@ export function RichText({ text }: RichTextProps): JSX.Element {
          {documentToReactComponents(text as Document, {
             renderNode: {
                [INLINES.HYPERLINK]: (node, children) => {
+                  // eslint-disable-next-line react/destructuring-assignment
                   const data = node.data as HyperlinkData;
                   return <BlankLink href={data.uri}>{children}</BlankLink>;
                },
                [BLOCKS.EMBEDDED_ASSET]: (node) => {
+                  // eslint-disable-next-line react/destructuring-assignment
                   const data = node.data as EmbeddedAssetData;
                   return <AssetImage image={data.target} />;
                },
