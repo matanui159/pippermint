@@ -4,7 +4,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { getContentfulEntries } from '../../../backend/contentful';
+import { getPlaceholders } from '../../../backend/placeholders';
 import { AssetImage } from '../../../components/AssetImage';
+import {
+   PlaceholderProvider,
+   Placeholders,
+} from '../../../components/PlaceholderProvider';
 import { Prose } from '../../../components/Prose';
 import { Title } from '../../../components/Title';
 import { Header } from '../../../components/header/Header';
@@ -19,15 +24,17 @@ export interface BlogPageProps {
    pageno: number;
    lastPage: boolean;
    entries: Entry<BlogPageFields>[];
+   placeholders: Placeholders;
 }
 
 export default function BlogPage({
    entries,
    pageno,
    lastPage,
+   placeholders,
 }: BlogPageProps): JSX.Element {
    return (
-      <>
+      <PlaceholderProvider placeholders={placeholders}>
          <Head>
             <title>Blog - Peppermint</title>
          </Head>
@@ -54,7 +61,7 @@ export default function BlogPage({
             ))}
             <Paginator pageno={pageno} lastPage={lastPage} />
          </Prose>
-      </>
+      </PlaceholderProvider>
    );
 }
 
@@ -84,6 +91,8 @@ export async function getStaticProps({
          revalidate,
       };
    }
+
+   const placeholders = await getPlaceholders(entries.map((entry) => entry.fields.image));
    return {
       props: {
          pageno,
@@ -95,6 +104,7 @@ export async function getStaticProps({
                fields,
             };
          }),
+         placeholders,
       },
       revalidate,
    };

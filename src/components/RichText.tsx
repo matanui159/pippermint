@@ -1,6 +1,6 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
-import { Asset, EntryFields } from 'contentful';
+import { Asset, EntryFields, RichTextContent } from 'contentful';
 import { AssetImage } from './AssetImage';
 import { BlankLink } from './BlankLink';
 
@@ -35,4 +35,13 @@ export function RichText({ text }: RichTextProps): JSX.Element {
          })}
       </>
    );
+}
+
+export function getRichTextImages(text: EntryFields.RichText | RichTextContent): Asset[] {
+   const images = text.content?.flatMap((content) => getRichTextImages(content)) ?? [];
+   if ((text.nodeType as string) === 'embedded-asset-block') {
+      const data = text.data as EmbeddedAssetData;
+      images.push(data.target);
+   }
+   return images;
 }

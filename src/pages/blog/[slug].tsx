@@ -3,9 +3,11 @@ import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } fro
 import { useRouter } from 'next/dist/client/router';
 import Head from 'next/head';
 import { getContentfulEntries } from '../../backend/contentful';
+import { getPlaceholders } from '../../backend/placeholders';
 import { AssetImage } from '../../components/AssetImage';
+import { PlaceholderProvider, Placeholders } from '../../components/PlaceholderProvider';
 import { Prose } from '../../components/Prose';
-import { RichText } from '../../components/RichText';
+import { RichText, getRichTextImages } from '../../components/RichText';
 import { Title } from '../../components/Title';
 import { Header } from '../../components/header/Header';
 
@@ -19,14 +21,18 @@ export interface BlogArticleFields {
 
 export interface BlogArticleProps {
    entry: Entry<BlogArticleFields>;
+   placeholders?: Placeholders;
 }
 
-export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
+export default function BlogArticle({
+   entry,
+   placeholders = {},
+}: BlogArticleProps): JSX.Element {
    const router = useRouter();
    const title = `${entry.fields.title} - Pippermint`;
 
    return (
-      <>
+      <PlaceholderProvider placeholders={placeholders}>
          <Head>
             <title>{title}</title>
             <meta property='og:title' content={title} />
@@ -42,7 +48,7 @@ export default function BlogArticle({ entry }: BlogArticleProps): JSX.Element {
             <Title title={entry.fields.title} date={entry.fields.date} />
             <RichText text={entry.fields.body} />
          </Prose>
-      </>
+      </PlaceholderProvider>
    );
 }
 
@@ -70,9 +76,13 @@ export async function getStaticProps({
          revalidate,
       };
    }
+
+   const { image, body } = entries[0].fields;
+   const placeholders = await getPlaceholders([image, ...getRichTextImages(body)]);
    return {
       props: {
          entry: entries[0],
+         placeholders,
       },
       revalidate,
    };

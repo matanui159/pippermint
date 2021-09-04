@@ -4,8 +4,10 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 import { logEvent } from '../analytics';
 import { getContentfulEntries } from '../backend/contentful';
+import { getPlaceholders } from '../backend/placeholders';
 import { AssetImage } from '../components/AssetImage';
 import { BlankLink } from '../components/BlankLink';
+import { PlaceholderProvider, Placeholders } from '../components/PlaceholderProvider';
 import { Prose } from '../components/Prose';
 import { Header } from '../components/header/Header';
 
@@ -18,11 +20,12 @@ export interface ProjectFields {
 
 export interface ProjectsProps {
    entries: Entry<ProjectFields>[];
+   placeholders: Placeholders;
 }
 
-export default function Projects({ entries }: ProjectsProps): JSX.Element {
+export default function Projects({ entries, placeholders }: ProjectsProps): JSX.Element {
    return (
-      <>
+      <PlaceholderProvider placeholders={placeholders}>
          <Head>
             <title>Projects - Pippermint</title>
          </Head>
@@ -45,7 +48,7 @@ export default function Projects({ entries }: ProjectsProps): JSX.Element {
                </Fragment>
             ))}
          </Prose>
-      </>
+      </PlaceholderProvider>
    );
 }
 
@@ -54,9 +57,11 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ProjectsPro
       content_type: 'project',
       order: 'fields.order',
    });
+   const placeholders = await getPlaceholders(entries.map((entry) => entry.fields.image));
    return {
       props: {
          entries,
+         placeholders,
       },
       revalidate: 60,
    };
